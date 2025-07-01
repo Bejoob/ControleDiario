@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Martingale</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Controle Diário Benny</h1>
+    <form id="controle-form">
+      <label for="saldo">Saldo do dia</label>
+      <input type="number" id="saldo" min="1" step="0.01" required>
+      <label for="meta">Meta diária (%)</label>
+      <input type="number" id="meta" min="1" max="100" step="0.01" required>
+      <label for="payout">Payout (%)</label>
+      <input type="number" id="payout" min="50" max="100" step="0.01" required>
+      <button type="submit">Calcular Controle</button>
+    </form>
+    <div id="controle-resultado"></div>
+    <div id="operacao-area" style="display:none; margin-top:20px;">
+      <button id="btn-win" type="button">Win</button>
+      <button id="btn-loss" type="button">Loss</button>
+      <div id="operacao-info" style="margin-top:10px;"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html> 

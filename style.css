@@ -1,0 +1,98 @@
+body {
+  background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 24px 24px 24px;
+}
+h1 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+label {
+  color: #334155;
+  font-weight: 500;
+}
+input, select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+input:focus, select:focus {
+  border: 1.5px solid #2563eb;
+}
+button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #1d4ed8;
+}
+#resultado {
+  margin-top: 32px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 16px;
+  color: #0f172a;
+  font-size: 1rem;
+  min-height: 40px;
+}
+#btn-win {
+  background: #22c55e;
+}
+#btn-win:hover {
+  background: #16a34a;
+}
+#btn-loss {
+  background: #ef4444;
+}
+#btn-loss:hover {
+  background: #b91c1c;
+}
+#operacao-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+#operacao-area button {
+  min-width: 140px;
+  font-size: 1.3rem;
+  padding: 18px 0;
+  margin: 0 12px 12px 12px;
+}
+#operacao-info {
+  text-align: left;
+}
+@media (max-width: 500px) {
+  .container {
+    max-width: 98vw;
+    padding: 16px 4vw 16px 4vw;
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+} 
