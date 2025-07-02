@@ -8,7 +8,10 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
   const stopwin = saldoInicial + (saldoInicial * meta);
   const stoploss = saldoInicial - (saldoInicial * meta); // Stop Loss é igual ao valor do Stop Win
   let operacaoAtiva = true;
-  let valorEntrada = saldoInicial * 0.03;
+  let valorEntrada = saldoInicial * 0.02; // porcentagem da entrada (2% do saldo)
+  let ultimoLoss = false;
+  let prejuizoAcumulado = 0;
+  let primeiraEntrada = valorEntrada;
 
   function showPopup(message, color) {
     // Remove popup existente, se houver
@@ -51,7 +54,15 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
   }
 
   function atualizarOperacaoInfo() {
-    valorEntrada = saldoAtual * 0.03;
+    let lucroDesejado = primeiraEntrada * payout;
+    if (ultimoLoss && prejuizoAcumulado > 0) {
+      valorEntrada = ((prejuizoAcumulado * 0.5) + lucroDesejado) / payout;
+    } else if (!ultimoLoss) {
+      // valorEntrada já foi ajustado no Win
+    } else {
+      valorEntrada = saldoAtual * 0.02;
+      primeiraEntrada = valorEntrada;
+    }
     let html = `<strong>Saldo atual:</strong> R$ ${saldoAtual.toFixed(2)}<br>`;
     html += `<strong>Próxima entrada:</strong> R$ ${valorEntrada.toFixed(2)}<br>`;
     html += `<strong>Stop Win (Meta):</strong> R$ ${stopwin.toFixed(2)}<br>`;
@@ -78,12 +89,20 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
 
   document.getElementById('btn-win').onclick = function() {
     if (!operacaoAtiva) return;
-    saldoAtual += valorEntrada * payout;
+    const lucro = valorEntrada * payout;
+    saldoAtual += lucro + (lucro * 0.5); // Soma o lucro + 50% do lucro
+    ultimoLoss = false;
+    prejuizoAcumulado = 0;
+    // Próxima entrada: 2% do saldo + 50% do lucro da operação
+    valorEntrada = (saldoAtual * 0.02) + (lucro * 0.5);
+    primeiraEntrada = valorEntrada;
     atualizarOperacaoInfo();
   };
   document.getElementById('btn-loss').onclick = function() {
     if (!operacaoAtiva) return;
     saldoAtual -= valorEntrada;
+    ultimoLoss = true;
+    prejuizoAcumulado += valorEntrada;
     atualizarOperacaoInfo();
   };
 
