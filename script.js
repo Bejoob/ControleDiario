@@ -6,7 +6,7 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
 
   let saldoAtual = saldoInicial;
   const stopwin = saldoInicial + (saldoInicial * meta);
-  const stoploss = saldoInicial - (0.5 * (saldoInicial * meta)); // Stop Loss é metade do valor do Stop Win
+  const stoploss = saldoInicial - (saldoInicial * meta); // Stop Loss é igual ao valor do Stop Win
   let operacaoAtiva = true;
   let valorEntrada = saldoInicial * 0.03;
 
