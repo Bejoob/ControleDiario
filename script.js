@@ -90,7 +90,7 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
   document.getElementById('btn-win').onclick = function() {
     if (!operacaoAtiva) return;
     const lucro = valorEntrada * payout;
-    saldoAtual += lucro + (lucro * 0.5);
+    saldoAtual += lucro;
     ultimoLoss = false;
     prejuizoAcumulado = 0;
     // Próxima entrada: 2% do saldo + 50% do lucro da operação
