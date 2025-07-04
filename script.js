@@ -56,12 +56,7 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
   function atualizarOperacaoInfo() {
     let lucroDesejado = primeiraEntrada * payout;
     if (ultimoLoss && prejuizoAcumulado > 0) {
-      valorEntrada = ((prejuizoAcumulado * 0.5) + lucroDesejado) / payout;
-    } else if (!ultimoLoss) {
-      // valorEntrada já foi ajustado no Win
-    } else {
-      valorEntrada = saldoAtual * 0.02;
-      primeiraEntrada = valorEntrada;
+      valorEntrada = (prejuizoAcumulado + lucroDesejado) / payout;
     }
     let html = `<strong>Saldo atual:</strong> R$ ${saldoAtual.toFixed(2)}<br>`;
     html += `<strong>Próxima entrada:</strong> R$ ${valorEntrada.toFixed(2)}<br>`;
@@ -93,7 +88,7 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
     saldoAtual += lucro;
     ultimoLoss = false;
     prejuizoAcumulado = 0;
-    // Próxima entrada: 2% do saldo + 50% do lucro da operação
+    // Próxima entrada: 2% do saldo atual + 50% do lucro da operação
     valorEntrada = (saldoAtual * 0.02) + (lucro * 0.5);
     primeiraEntrada = valorEntrada;
     atualizarOperacaoInfo();
