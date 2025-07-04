@@ -75,6 +75,12 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
     document.getElementById('operacao-info').innerHTML = html;
     document.getElementById('btn-win').disabled = !operacaoAtiva;
     document.getElementById('btn-loss').disabled = !operacaoAtiva;
+
+    // Prévia da próxima entrada em caso de Loss
+    const previaPrejuizoAcumulado = prejuizoAcumulado + valorEntrada;
+    const previaProximaEntradaLoss = (previaPrejuizoAcumulado + lucroDesejado) / payout;
+    document.getElementById('previa-loss').innerHTML =
+      `Próxima entrada se Loss: R$ ${previaProximaEntradaLoss.toFixed(2)}`;
   }
 
   document.getElementById('operacao-area').style.display = 'block';
