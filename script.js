@@ -3,12 +3,13 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
   const saldoInicial = parseFloat(document.getElementById('saldo').value);
   const meta = parseFloat(document.getElementById('meta').value) / 100;
   const payout = parseFloat(document.getElementById('payout').value) / 100;
+  const porcentagemEntrada = parseFloat(document.getElementById('porcentagem-entrada').value) / 100;
 
   let saldoAtual = saldoInicial;
   const stopwin = saldoInicial + (saldoInicial * meta);
   const stoploss = saldoInicial - (saldoInicial * meta); // Stop Loss é igual ao valor do Stop Win
   let operacaoAtiva = true;
-  let valorEntrada = saldoInicial * 0.02; // porcentagem da entrada (2% do saldo)
+  let valorEntrada = saldoInicial * porcentagemEntrada; // porcentagem da entrada
   let ultimoLoss = false;
   let prejuizoAcumulado = 0;
   let primeiraEntrada = valorEntrada;
@@ -88,8 +89,8 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
     saldoAtual += lucro;
     ultimoLoss = false;
     prejuizoAcumulado = 0;
-    // Próxima entrada: 2% do saldo atual + 50% do lucro da operação
-    valorEntrada = (saldoAtual * 0.02) + (lucro * 0.5);
+    // Próxima entrada: porcentagem do saldo atual + 50% do lucro da operação
+    valorEntrada = (saldoAtual * porcentagemEntrada) + (lucro * 0.5);
     primeiraEntrada = valorEntrada;
     atualizarOperacaoInfo();
   };
