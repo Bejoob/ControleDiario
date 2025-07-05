@@ -78,7 +78,13 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
 
     // Prévia da próxima entrada em caso de Loss
     const previaPrejuizoAcumulado = prejuizoAcumulado + valorEntrada;
-    const previaProximaEntradaLoss = (previaPrejuizoAcumulado + lucroDesejado) / payout;
+    let previaProximaEntradaLoss = (previaPrejuizoAcumulado + lucroDesejado) / payout;
+    // Limitar a entrada para não ultrapassar o Stop Loss
+    const maxEntradaPossivel = saldoAtual - stoploss;
+    if (previaProximaEntradaLoss > maxEntradaPossivel) {
+      previaProximaEntradaLoss = maxEntradaPossivel;
+      if (previaProximaEntradaLoss < 0) previaProximaEntradaLoss = 0;
+    }
     document.getElementById('previa-loss').innerHTML =
       `Próxima entrada se Loss: R$ ${previaProximaEntradaLoss.toFixed(2)}`;
   }
@@ -93,11 +99,17 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
     if (!operacaoAtiva) return;
     const lucro = valorEntrada * payout;
     saldoAtual += lucro;
+    if (ultimoLoss) {
+      // Após ciclo de loss, volta para entrada inicial (apenas porcentagem do saldo)
+      valorEntrada = saldoAtual * porcentagemEntrada;
+      primeiraEntrada = valorEntrada;
+    } else {
+      // Win seguido de Win: porcentagem do saldo + 50% do lucro
+      valorEntrada = (saldoAtual * porcentagemEntrada) + (lucro * 0.5);
+      primeiraEntrada = valorEntrada;
+    }
     ultimoLoss = false;
     prejuizoAcumulado = 0;
-    // Próxima entrada: porcentagem do saldo atual + 50% do lucro da operação
-    valorEntrada = (saldoAtual * porcentagemEntrada) + (lucro * 0.5);
-    primeiraEntrada = valorEntrada;
     atualizarOperacaoInfo();
   };
   document.getElementById('btn-loss').onclick = function() {
