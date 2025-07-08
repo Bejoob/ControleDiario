@@ -81,12 +81,17 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
     let previaProximaEntradaLoss = (previaPrejuizoAcumulado + lucroDesejado) / payout;
     // Limitar a entrada para não ultrapassar o Stop Loss
     const maxEntradaPossivel = saldoAtual - stoploss;
+    let previaLossMsg = '';
     if (previaProximaEntradaLoss > maxEntradaPossivel) {
       previaProximaEntradaLoss = maxEntradaPossivel;
       if (previaProximaEntradaLoss < 0) previaProximaEntradaLoss = 0;
     }
-    document.getElementById('previa-loss').innerHTML =
-      `Próxima entrada se Loss: R$ ${previaProximaEntradaLoss.toFixed(2)}`;
+    if (previaProximaEntradaLoss <= 0) {
+      previaLossMsg = '<span style="color:#ef4444;font-weight:bold;">Não é mais possível operar sem ultrapassar o Stop Loss.</span>';
+    } else {
+      previaLossMsg = `Próxima entrada se Loss: R$ ${previaProximaEntradaLoss.toFixed(2)}`;
+    }
+    document.getElementById('previa-loss').innerHTML = previaLossMsg;
   }
 
   document.getElementById('operacao-area').style.display = 'block';
