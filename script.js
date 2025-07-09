@@ -163,7 +163,7 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
     // Atualizar valorEntrada para recuperar prejuízo acumulado + lucro desejado, se opção marcada
     let lucroDesejado = primeiraEntrada * payout;
     if (recuperarLoss) {
-      valorEntrada = ((prejuizoAcumulado * 0.5) + lucroDesejado) / payout;
+      valorEntrada = ((prejuizoAcumulado * 1.0) + lucroDesejado) / payout;
     } else {
       valorEntrada = saldoAtual * porcentagemEntrada;
     }
