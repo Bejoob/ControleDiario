@@ -30,6 +30,16 @@
         <input type="checkbox" id="recuperar-loss" checked>
         Recuperar prejuízo do loss na próxima entrada
       </label>
+      <div id="tipo-recuperacao-loss" style="margin-left:24px;display:none;gap:12px;align-items:center;">
+        <label style="display:flex;align-items:center;gap:4px;">
+          <input type="radio" name="recuperacao-loss" id="recuperar-lucro" value="lucro" checked>
+          Recuperar prejuízo + lucro
+        </label>
+        <label style="display:flex;align-items:center;gap:4px;">
+          <input type="radio" name="recuperacao-loss" id="recuperar-apenas-prejuizo" value="apenas-prejuizo">
+          Recuperar só o prejuízo
+        </label>
+      </div>
       <button type="submit">Calcular Controle</button>
     </form>
     <div id="controle-resultado"></div>

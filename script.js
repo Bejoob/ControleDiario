@@ -7,6 +7,14 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
   const porcentagemStopLoss = parseFloat(document.getElementById('porcentagem-stoploss').value) / 100;
   const usar50Lucro = document.getElementById('usar-50-lucro').checked;
   const recuperarLoss = document.getElementById('recuperar-loss').checked;
+  let tipoRecuperacaoLoss = 'lucro';
+  if (recuperarLoss) {
+    const radioLucro = document.getElementById('recuperar-lucro');
+    const radioApenasPrejuizo = document.getElementById('recuperar-apenas-prejuizo');
+    if (radioApenasPrejuizo && radioApenasPrejuizo.checked) {
+      tipoRecuperacaoLoss = 'apenas-prejuizo';
+    }
+  }
 
   let saldoAtual = saldoInicial;
   const stopwin = saldoInicial + (saldoInicial * meta);
@@ -131,12 +139,7 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
       previaProximaEntradaLoss = maxEntradaPossivel;
       if (previaProximaEntradaLoss < 0) previaProximaEntradaLoss = 0;
     }
-    let lucro;
-    if (previaProximaEntradaLoss < valorEntrada) {
-      lucro = previaProximaEntradaLoss * payout;
-    } else {
-      lucro = valorEntrada * payout;
-    }
+    let lucro = valorEntrada * payout;
     saldoAtual += lucro;
     if (ultimoLoss) {
       // Após ciclo de loss, volta para entrada inicial (apenas porcentagem do saldo)
@@ -162,8 +165,20 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
     prejuizoAcumulado += valorEntrada;
     // Atualizar valorEntrada para recuperar prejuízo acumulado + lucro desejado, se opção marcada
     let lucroDesejado = primeiraEntrada * payout;
+    let tipoRecuperacaoLoss = 'lucro';
+    if (document.getElementById('recuperar-loss').checked) {
+      const radioLucro = document.getElementById('recuperar-lucro');
+      const radioApenasPrejuizo = document.getElementById('recuperar-apenas-prejuizo');
+      if (radioApenasPrejuizo && radioApenasPrejuizo.checked) {
+        tipoRecuperacaoLoss = 'apenas-prejuizo';
+      }
+    }
     if (recuperarLoss) {
-      valorEntrada = ((prejuizoAcumulado * 1.0) + lucroDesejado) / payout;
+      if (tipoRecuperacaoLoss === 'apenas-prejuizo') {
+        valorEntrada = prejuizoAcumulado / payout;
+      } else {
+        valorEntrada = ((prejuizoAcumulado * 1.0) + lucroDesejado) / payout;
+      }
     } else {
       valorEntrada = saldoAtual * porcentagemEntrada;
     }
@@ -172,4 +187,11 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
 
   // Não exibir mais o resumo do controle diário
   document.getElementById('controle-resultado').innerHTML = '';
+
+  // Mostrar ou ocultar opções de tipo de recuperação
+  document.getElementById('recuperar-loss').addEventListener('change', function() {
+    document.getElementById('tipo-recuperacao-loss').style.display = this.checked ? 'flex' : 'none';
+  });
+  // Inicializar visibilidade
+  document.getElementById('tipo-recuperacao-loss').style.display = recuperarLoss ? 'flex' : 'none';
 });
