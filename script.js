@@ -105,7 +105,24 @@ document.getElementById('controle-form').addEventListener('submit', function(e) 
 
     // Prévia da próxima entrada em caso de Loss
     const previaPrejuizoAcumulado = prejuizoAcumulado + valorEntrada;
-    let previaProximaEntradaLoss = ((previaPrejuizoAcumulado * 0.5) + lucroDesejado) / payout;
+    let previaProximaEntradaLoss;
+    let tipoRecuperacaoLoss = 'lucro';
+    if (document.getElementById('recuperar-loss').checked) {
+      const radioLucro = document.getElementById('recuperar-lucro');
+      const radioApenasPrejuizo = document.getElementById('recuperar-apenas-prejuizo');
+      if (radioApenasPrejuizo && radioApenasPrejuizo.checked) {
+        tipoRecuperacaoLoss = 'apenas-prejuizo';
+      }
+    }
+    if (recuperarLoss) {
+      if (tipoRecuperacaoLoss === 'apenas-prejuizo') {
+        previaProximaEntradaLoss = previaPrejuizoAcumulado / payout;
+      } else {
+        previaProximaEntradaLoss = ((previaPrejuizoAcumulado * 1.0) + lucroDesejado) / payout;
+      }
+    } else {
+      previaProximaEntradaLoss = saldoAtual * porcentagemEntrada;
+    }
     // Limitar a entrada para não ultrapassar o Stop Loss
     const maxEntradaPossivel = saldoAtual - stoploss;
     if (previaProximaEntradaLoss > maxEntradaPossivel) {
