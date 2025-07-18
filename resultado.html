@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado - Operacional Benny</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Resultado do Controle</h1>
+    <div id="placar-operacoes" class="placar-futurista" style="margin: 0 auto 24px auto; font-size:1.2rem;font-weight:bold; max-width: 340px; display:flex;justify-content:center;align-items:center;gap:18px;background:linear-gradient(90deg,#0ea5e9 0%,#6366f1 100%);border-radius:16px;box-shadow:0 4px 24px rgba(99,102,241,0.18);padding:12px 32px;color:#fff;">
+      <span class="placar-label" style="opacity:0.8;font-size:1.1rem;margin-right:8px;font-weight:600;">Placar:</span>
+      <span class="placar-num placar-win" style="display:flex;align-items:center;gap:4px;font-size:1.5rem;font-weight:800;padding:0 6px;border-radius:8px;background:rgba(255,255,255,0.08);box-shadow:0 1px 8px 0 rgba(99,102,241,0.10);">
+        <svg width="20" height="20" viewBox="0 0 48 48" fill="none" style="vertical-align:middle;"><circle cx="24" cy="24" r="24" fill="#22c55e"/><path d="M34 18l-12 12-6-6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="placar-num-win">0</span>
+      </span>
+      <span class="placar-x" style="font-size:1.3rem;font-weight:700;opacity:0.7;margin:0 8px;">x</span>
+      <span class="placar-num placar-loss" style="display:flex;align-items:center;gap:4px;font-size:1.5rem;font-weight:800;padding:0 6px;border-radius:8px;background:rgba(255,255,255,0.08);box-shadow:0 1px 8px 0 rgba(99,102,241,0.10);">
+        <svg width="20" height="20" viewBox="0 0 48 48" fill="none" style="vertical-align:middle;"><circle cx="24" cy="24" r="24" fill="#ef4444"/><path d="M30 18l-12 12M18 18l12 12" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+        <span id="placar-num-loss">0</span>
+      </span>
+    </div>
+    <div id="operacao-area" style="margin-top:20px;">
+      <div class="botoes-futuristas" style="display:flex;justify-content:center;gap:24px;margin-bottom:24px;">
+        <button id="btn-win" type="button">Win</button>
+        <button id="btn-loss" type="button">Loss</button>
+      </div>
+      <div id="operacao-info" style="margin-top:10px;"></div>
+      <div id="previa-loss" style="margin-top:10px; color:#b91c1c; font-weight:bold;"></div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:32px;">
+      <button id="btn-voltar" style="padding:18px 48px;font-size:1.25rem;font-weight:700;border-radius:14px;background:linear-gradient(90deg,#6366f1 0%,#0ea5e9 100%);color:#fff;border:none;box-shadow:0 4px 24px rgba(99,102,241,0.18);cursor:pointer;transition:background 0.22s,transform 0.13s,box-shadow 0.22s;letter-spacing:1px;">Voltar para o início</button>
+    </div>
+    <script>
+      document.getElementById('btn-voltar').onclick = function() {
+        window.location.href = 'index.html';
+      };
+    </script>
+  </div>
+  <script src="resultado.js"></script>
+</body>
+</html> 
